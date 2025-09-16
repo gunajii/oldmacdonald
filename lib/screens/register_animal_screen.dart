@@ -4,6 +4,8 @@ import '../providers/animal_provider.dart';
 import '../models/animal.dart';
 
 class RegisterAnimalScreen extends StatefulWidget {
+  const RegisterAnimalScreen({super.key});
+
   @override
   _RegisterAnimalScreenState createState() => _RegisterAnimalScreenState();
 }
@@ -19,6 +21,7 @@ class _RegisterAnimalScreenState extends State<RegisterAnimalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final farmerId = ModalRoute.of(context)!.settings.arguments as String;
     final animalProvider = Provider.of<AnimalProvider>(context);
 
     return Scaffold(
@@ -49,6 +52,7 @@ class _RegisterAnimalScreenState extends State<RegisterAnimalScreen> {
                     _formKey.currentState!.save();
                     final animal = Animal(
                       animalId: _id,
+                      farmerId: farmerId,
                       breed: _breed,
                       type: _type,
                       dobIso: _dobIso,

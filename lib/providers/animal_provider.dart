@@ -2,9 +2,13 @@ import 'package:flutter/foundation.dart';
 import '../models/animal.dart';
 
 class AnimalProvider with ChangeNotifier {
-  List<Animal> _animals = [];
+  final List<Animal> _animals = [];
 
   List<Animal> get animals => _animals;
+
+  List<Animal> getAnimalsByFarmer(String farmerId) {
+    return _animals.where((animal) => animal.farmerId == farmerId).toList();
+  }
 
   void addAnimal(Animal animal) {
     _animals.add(animal);
@@ -16,6 +20,7 @@ class AnimalProvider with ChangeNotifier {
     if (index != -1) {
       _animals[index] = Animal(
         animalId: _animals[index].animalId,
+        farmerId: _animals[index].farmerId,
         type: _animals[index].type,
         breed: _animals[index].breed,
         dobIso: _animals[index].dobIso,

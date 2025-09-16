@@ -1,5 +1,6 @@
 class Animal {
   final String animalId;
+  final String farmerId;
   final String type;
   final String breed;
   final String? dobIso;
@@ -11,6 +12,7 @@ class Animal {
 
   Animal({
     required this.animalId,
+    required this.farmerId,
     required this.type,
     required this.breed,
     this.dobIso,
@@ -23,6 +25,7 @@ class Animal {
 
   factory Animal.fromJson(Map<String, dynamic> json) => Animal(
     animalId: json['animalId'] as String,
+    farmerId: json['farmerId'] as String,
     type: json['type'] as String,
     breed: json['breed'] as String,
     dobIso: json['dobIso'] as String?,
@@ -35,6 +38,7 @@ class Animal {
 
   Map<String, dynamic> toJson() => {
     'animalId': animalId,
+    'farmerId': farmerId,
     'type': type,
     'breed': breed,
     'dobIso': dobIso,

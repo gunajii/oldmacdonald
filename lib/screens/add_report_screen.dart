@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/animal_provider.dart';
-import '../models/animal.dart';
 import '../services/calculation_service.dart';
 
 class AddReportScreen extends StatefulWidget {
@@ -13,6 +12,7 @@ class _AddReportScreenState extends State<AddReportScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedAnimalId;
   String _drugName = '';
+  String _drugId = '';
   String _reason = '';
   String _doctorName = '';
   String _notes = '';
@@ -20,8 +20,12 @@ class _AddReportScreenState extends State<AddReportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final farmerId = args['farmerId'] as String;
+    final doctorLicense = args['doctorLicense'] as String;
+
     final animalProvider = Provider.of<AnimalProvider>(context);
-    final animals = animalProvider.animals;
+    final animals = animalProvider.getAnimalsByFarmer(farmerId);
 
     return Scaffold(
       appBar: AppBar(title: Text('Add Report')),
@@ -45,10 +49,17 @@ class _AddReportScreenState extends State<AddReportScreen> {
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Drug/Medicine Name'),
+                validator: (val) => val == null || val.isEmpty ? 'Required' : null,
                 onSaved: (val) => _drugName = val ?? '',
               ),
               TextFormField(
+                decoration: InputDecoration(labelText: 'Drug ID'),
+                validator: (val) => val == null || val.isEmpty ? 'Required' : null,
+                onSaved: (val) => _drugId = val ?? '',
+              ),
+              TextFormField(
                 decoration: InputDecoration(labelText: 'Reason'),
+                validator: (val) => val == null || val.isEmpty ? 'Required' : null,
                 onSaved: (val) => _reason = val ?? '',
               ),
               TextFormField(
@@ -72,6 +83,14 @@ class _AddReportScreenState extends State<AddReportScreen> {
                         withdrawalDates['meat']!,
                         withdrawalDates['dairy']!,
                       );
+
+                      // Here you would typically create and save a Report object
+                      // with all the collected data (_drugName, _drugId, _reason, etc.)
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Report submitted successfully')),
+                      );
+
                       Navigator.pop(context);
                     }
                   }

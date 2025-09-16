@@ -2,6 +2,7 @@ class Report {
   final String reportId;
   final String animalId;
   final String drugName;
+  final String drugId;
   final String administeredDateIso;
   final String reason;
   final String? doctorName;
@@ -14,6 +15,7 @@ class Report {
     required this.reportId,
     required this.animalId,
     required this.drugName,
+    required this.drugId,
     required this.administeredDateIso,
     required this.reason,
     this.doctorName,
@@ -27,6 +29,7 @@ class Report {
     reportId: json['reportId'] as String,
     animalId: json['animalId'] as String,
     drugName: json['drugName'] as String,
+    drugId: json['drugId'] as String,
     administeredDateIso: json['administeredDateIso'] as String,
     reason: json['reason'] as String,
     doctorName: json['doctorName'] as String?,
@@ -40,6 +43,7 @@ class Report {
     'reportId': reportId,
     'animalId': animalId,
     'drugName': drugName,
+    'drugId': drugId,
     'administeredDateIso': administeredDateIso,
     'reason': reason,
     'doctorName': doctorName,
